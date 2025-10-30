@@ -167,7 +167,7 @@ document.getElementById("btn-tarea").addEventListener("click", function () {
    });
 
    lista.appendChild(fila);
-   textoInput.value = '';
+   input.value = '';
 });
 
  document.getElementById('btn-borrar-completadas').addEventListener('click', function () {
