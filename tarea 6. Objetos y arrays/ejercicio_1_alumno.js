@@ -59,7 +59,7 @@ function agregarColor() {
     var color = input.value.trim();
     colores.push(color);
     document.getElementById("resultado-ej2").innerHTML = '<div class="alert alert-success">color ' + color + ' añadido correctamente</p>';
-    color.value='';
+    input.value='';
 
 }
 
