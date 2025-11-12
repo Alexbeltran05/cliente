@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio HTML + CSS + jQuery</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 40px;
+            background-color: #f4f4f4;
+            transition: background-color 1s, color 1s;
+        }
+
+        h1 {
+            display: inline-block;
+            animation: moverColorTamaño 4s infinite;
+            position: relative;
+        }
+
+        @keyframes moverColorTamaño {
+            0% {
+                color: red;
+                transform: translateX(0) scale(1);
+                font-size: 2em;
+            }
+            50% {
+                color: blue;
+                transform: translateX(100px) scale(1.5);
+                font-size: 2.5em;
+            }
+            100% {
+                color: red;
+                transform: translateX(0) scale(1);
+                font-size: 2em;
+            }
+        }
+
+        img {
+            width: 200px;
+            margin-top: 20px;
+            transition: transform 2s ease-in-out, opacity 2s ease-in-out;
+        }
+
+        img:hover {
+            transform: scale(1.2);
+            opacity: 0.7;
+        }
+
+        #panel {
+            width: 200px;
+            height: 100px;
+            background-color: #ccc;
+            margin: 40px auto;
+            line-height: 100px;
+            font-weight: bold;
+        }
+
+        #teclaPulsada {
+            margin-top: 30px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        p {
+            font-size: 1.1em;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+    <h1>Animación con CSS y jQuery</h1>
+    <br>
+    <img src="imagenes/araña.jpg">
+
+    <p id="texto">parrafo.</p>
+    <button id="boton">Cambiar Estilo y Texto</button>
+
+    <div id="panel">Pasa el ratón por aquí</div>
+    <div id="teclaPulsada">Presiona una tecla...</div>
+
+    <script>
+
+        $("#boton").click(function() {
+            $("body").css({
+                "background-color": "#222",
+                "color": "white"
+            });
+            $("#texto").text("cambiado con jQuery");
+        });
+
+        $("#panel").hover(
+            function() { 
+                $(this).stop().animate({
+                    width: "500px",
+                    backgroundColor: "#ddd"
+                }, 1000);
+            },
+            function() { 
+                $(this).stop().animate({
+                    width: "200px",
+                    backgroundColor: "#ccc"
+                }, 1000);
+            }
+        );
+
+        $(document).keydown(function(event) {
+            $("#teclaPulsada").text("Tecla pulsada: " + event.key);
+        });
+    </script>
+</body>
+</html>
