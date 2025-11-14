@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=ç, initial-scale=1.0">
+    <title>formulario</title>
+</head>
+<body>
+    <form method="post" action="" id="login">
+        <input type="text" name="usuario">
+        <input type="password" name="clave">
+        <button type="submit">Enviar</button>
+    </form>
+    <script>
+        document.getElementById("login").addEventListener("submit", function(e){
+            e.preventDefault();
+
+            const usuario = this.usuario.value.trim();
+            const clave = this.clave.value.trim();
+            
+            if(usuario == '' || clave == ''){
+                alert("ingresa los datos correctamente");
+                return;
+            }
+        
+            this.submit();
+            alert("OK");
+        });
+
+    </script>
+</body>
+</html>
