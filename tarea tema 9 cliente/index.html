@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea tema 9</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            padding: 30px;
+            color: white;
+            background-color: rgb(0, 0, 0);
+            align-items: center;
+
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 5px;
+        }
+
+        strong {
+            margin-top: 6px;
+            margin-bottom: 6px;
+        }
+
+        .input-ok {
+            border: 2px solid green;
+        }
+
+        .input-err {
+            border: 2px solid red;
+        }
+
+        .ayuda {
+            font-size: 15px;
+            color: #ffffff;
+            display: none;
+        }
+
+        .estado {
+            font-size: 15px;
+            margin-top: 2px;
+        }
+
+        .estado.ok {
+            color: green;
+        }
+
+        .estado.err {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container py-5">
+        <div class="card">
+            <form id="formulario">
+                <strong>Nombre de usuario:</strong><br>
+                <input type="text" id="nombre" placeholder="Ingresa tu nombre" onfocus="mostrar('ayuda-nombre')"
+                    onblur="ocultar('ayuda-nombre')" oninput="validar('nombre')">
+                <div id="ayuda-nombre" class="ayuda">Introduce solo letras y espacios.</div>
+                <div id="estado-nombre" class="estado"></div>
+                <br>
+
+                <strong>Correo electrónico:</strong><br>
+                <input type="email" id="email" placeholder="Ingresa tu correo electrónico"
+                    onfocus="mostrar('ayuda-email')" onblur="ocultar('ayuda-email')" oninput="validar('email')">
+                <div id="ayuda-email" class="ayuda">Debe ser un correo electrónico válido.</div>
+                <div id="estado-email" class="estado"></div>
+                <br>
+
+                <strong>Contraseña:</strong><br>
+                <input type="password" id="password" placeholder="Ingresa tu contraseña"
+                    onfocus="mostrar('ayuda-password')" onblur="ocultar('ayuda-password')"
+                    oninput="validar('password')">
+                <div id="ayuda-password" class="ayuda">Mín. 8 caracteres, 1 mayúscula, 1 número y 1 símbolo.</div>
+                <div id="estado-password" class="estado"></div>
+                <br>
+
+                <strong>Edad:</strong><br>
+                <input type="number" id="edad" placeholder="Ingresa tu edad" onfocus="mostrar('ayuda-edad')"
+                    onblur="ocultar('ayuda-edad')" oninput="validar('edad')">
+                <div id="ayuda-edad" class="ayuda">Introduce solo números.</div>
+                <div id="estado-edad" class="estado"></div>
+                <br>
+
+                <button type="submit" id="btnEnviar">Enviar</button>
+                <button type="button" id="btnEliminar">Eliminar cookie</button>
+            </form>
+
+            <div id="saludo" style="margin-top:12px; font-weight:bold;"></div>
+        </div>
+
+        <script src="Funciones.js"></script>
+
+</body>
+
+</html>
