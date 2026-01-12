@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tema 11 - Práctica jQuery (Bootstrap 5) - PLANTILLA</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- jQuery (CDN) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <style>
+    .demo-box{
+      border: 1px dashed #adb5bd;
+      border-radius: .75rem;
+      padding: 1rem;
+      background: #f8f9fa;
+    }
+    .selected-li{
+      background: #e9ecef !important;
+      font-weight: 600;
+    }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+</head>
+
+<body class="bg-light">
+  <div class="container py-4">
+
+    <header class="mb-4">
+      <h1 class="h3 mb-1">DWEC — Tema 11 (jQuery) — Práctica (PLANTILLA)</h1>
+      <p class="text-secondary mb-0">
+        Un único fichero HTML con 5 ejercicios: selectores, DOM, eventos, efectos y “AJAX” simulado.
+      </p>
+    </header>
+
+    <div class="alert alert-info">
+      <strong>Entrega:</strong> 1 fichero HTML (<span class="mono">Tema11_jquery_practica_apellidos_nombre.html</span>) + capturas (mín. 5, una por ejercicio).<br>
+      <strong>Normas:</strong> La lógica principal debe hacerse con <u>jQuery</u> (no JavaScript “a pelo” salvo lo mínimo).
+    </div>
+
+    <div class="accordion" id="accEjercicios">
+
+      <!-- EJERCICIO 1 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h1">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c1" aria-expanded="true" aria-controls="c1">
+            Ejercicio 1 — Manipulación del DOM (texto, estilos, clases)
+          </button>
+        </h2>
+        <div id="c1" class="accordion-collapse collapse show" aria-labelledby="h1" data-bs-parent="#accEjercicios">
+          <div class="accordion-body">
+            <h3 class="h6">Enunciado</h3>
+            <ul>
+              <li>Al pulsar <strong>“Aplicar cambios”</strong>:</li>
+              <li>Cambia el texto del título <span class="mono">#ej1Titulo</span>.</li>
+              <li>Cambia el color del párrafo <span class="mono">#ej1Texto</span>.</li>
+              <li>Añade una clase al párrafo (por ejemplo <span class="mono">fw-bold</span>).</li>
+              <li>Deshabilita el botón y cambia su texto a “Hecho ✅”.</li>
+              <li>Escribe un mensaje informativo en <span class="mono">#ej1Info</span>.</li>
+
+            </ul>
+
+            <div class="demo-box">
+              <h4 id="ej1Titulo" class="h5 mb-2">Título original (Ejercicio 1)</h4>
+              <p id="ej1Texto" class="mb-3">Este párrafo debe cambiar con jQuery al pulsar el botón.</p>
+
+              <button id="ej1Btn" class="btn btn-primary">Aplicar cambios</button>
+              <span id="ej1Info" class="ms-2 text-secondary"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EJERCICIO 2 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h2">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c2" aria-expanded="false" aria-controls="c2">
+            Ejercicio 2 — Efectos (hide/show/toggle + fade/slide)
+          </button>
+        </h2>
+        <div id="c2" class="accordion-collapse collapse" aria-labelledby="h2" data-bs-parent="#accEjercicios">
+          <div class="accordion-body">
+            <h3 class="h6">Enunciado</h3>
+            <ul>
+              <li>Implementa los botones para aplicar efectos sobre <span class="mono">#ej2Caja</span> usando jQuery:</li>
+              <li><strong>Ocultar</strong> → <span class="mono">hide()</span></li>
+              <li><strong>Mostrar</strong> → <span class="mono">show()</span></li>
+              <li><strong>Alternar</strong> → <span class="mono">toggle()</span></li>
+              <li><strong>Fade</strong> → <span class="mono">fadeToggle(300)</span></li>
+              <li><strong>Slide</strong> → <span class="mono">slideToggle(300)</span></li>
+              <li>Cada acción debe actualizar el texto de <span class="mono">#ej2Estado</span>.</li>
+            </ul>
+
+            <div class="demo-box">
+              <div id="ej2Caja" class="alert alert-warning mb-3">
+                Soy el panel del Ejercicio 2. ¡Hazme desaparecer y volver!
+              </div>
+
+              <div class="d-flex flex-wrap gap-2">
+                <button id="ej2Hide" class="btn btn-outline-danger">Ocultar</button>
+                <button id="ej2Show" class="btn btn-outline-success">Mostrar</button>
+                <button id="ej2Toggle" class="btn btn-outline-secondary">Alternar</button>
+                <button id="ej2Fade" class="btn btn-outline-primary">Fade</button>
+                <button id="ej2Slide" class="btn btn-outline-dark">Slide</button>
+              </div>
+
+              <div id="ej2Estado" class="mt-3 small text-secondary">Estado: esperando acción…</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EJERCICIO 3 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h3">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c3" aria-expanded="false" aria-controls="c3">
+            Ejercicio 3 — Eventos + this (lista seleccionable con un único handler)
+          </button>
+        </h2>
+        <div id="c3" class="accordion-collapse collapse" aria-labelledby="h3" data-bs-parent="#accEjercicios">
+          <div class="accordion-body">
+            <h3 class="h6">Enunciado</h3>
+            <ul>
+              <li>Al hacer clic sobre un <span class="mono">&lt;li&gt;</span> dentro de <span class="mono">#ej3Lista</span>:</li>
+              <li>Quita <span class="mono">selected-li</span> a todos los <span class="mono">li</span>.</li>
+              <li>Añade <span class="mono">selected-li</span> al elemento pulsado usando <span class="mono">$(this)</span>.</li>
+              <li>Escribe en <span class="mono">#ej3Info</span> el texto seleccionado y la hora actual.</li>
+              <li><strong>Importante:</strong> usar un único manejador con delegación:
+                <span class="mono">$("#ej3Lista").on("click","li", ...)</span>
+              </li>
+            </ul>
+
+            <div class="demo-box">
+              <ul id="ej3Lista" class="list-group">
+                <li class="list-group-item">HTML</li>
+                <li class="list-group-item">CSS</li>
+                <li class="list-group-item">JavaScript</li>
+                <li class="list-group-item">jQuery</li>
+              </ul>
+
+              <div id="ej3Info" class="mt-3 alert alert-secondary mb-0">
+                Haz clic en un elemento…
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EJERCICIO 4 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h4">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c4" aria-expanded="false" aria-controls="c4">
+            Ejercicio 4 — Formulario con validación (preventDefault + mensajes)
+          </button>
+        </h2>
+        <div id="c4" class="accordion-collapse collapse" aria-labelledby="h4" data-bs-parent="#accEjercicios">
+          <div class="accordion-body">
+            <h3 class="h6">Enunciado</h3>
+            <ul>
+              <li>Al enviar el formulario, evita recargar la página con <span class="mono">preventDefault()</span>.</li>
+              <li>Validar:
+                <ul>
+                  <li>Nombre obligatorio (mín. 3 caracteres).</li>
+                  <li>Email obligatorio y debe contener “@” (validación sencilla).</li>
+                </ul>
+              </li>
+              <li>Si hay errores: mostrar <span class="mono">alert alert-danger</span> en <span class="mono">#ej4Msg</span> con lista de errores.</li>
+              <li>Si está OK: mostrar <span class="mono">alert alert-success</span> y limpiar inputs.</li>
+            </ul>
+
+            <div class="demo-box">
+              <form id="ej4Form" class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Nombre</label>
+                  <input id="ej4Nombre" type="text" class="form-control" placeholder="Ej: Diego">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Email</label>
+                  <input id="ej4Email" type="text" class="form-control" placeholder="Ej: correo@ejemplo.com">
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-primary" type="submit">Enviar</button>
+                </div>
+              </form>
+
+              <div id="ej4Msg" class="mt-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EJERCICIO 5 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="h5">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c5" aria-expanded="false" aria-controls="c5">
+            Ejercicio 5 — “AJAX” simulado + render dinámico de una lista
+          </button>
+        </h2>
+        <div id="c5" class="accordion-collapse collapse" aria-labelledby="h5" data-bs-parent="#accEjercicios">
+          <div class="accordion-body">
+            <h3 class="h6">Enunciado</h3>
+            <ul>
+              <li>Al pulsar <strong>Cargar usuarios</strong>:</li>
+              <li>Deshabilita el botón y escribe “Cargando…” en <span class="mono">#ej5Estado</span>.</li>
+              <li>Simula una petición asíncrona con <span class="mono">setTimeout</span> (600ms aprox.).</li>
+              <li>Cuando “lleguen los datos”, pinta cada usuario en <span class="mono">#ej5Lista</span> como <span class="mono">li</span> de Bootstrap.</li>
+              <li>Vuelve a habilitar el botón y muestra cuántos usuarios se cargaron.</li>
+              <li>El botón “Limpiar lista” debe vaciar la lista y actualizar el estado.</li>
+            </ul>
+
+            <div class="demo-box">
+              <div class="d-flex flex-wrap gap-2">
+                <button id="ej5Btn" class="btn btn-success">Cargar usuarios</button>
+                <button id="ej5Clear" class="btn btn-outline-secondary">Limpiar lista</button>
+              </div>
+
+              <div id="ej5Estado" class="mt-3 small text-secondary">Estado: esperando acción…</div>
+
+              <ul id="ej5Lista" class="list-group mt-3"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /accordion -->
+
+    <footer class="mt-4 text-secondary small">
+      Recuerda: usar <span class="mono">$(document).ready(...)</span> para asegurar que el DOM está listo.
+    </footer>
+
+  </div><!-- /container -->
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- ===========================
+       jQuery / JS INTEGRADO
+       PLANTILLA CON TODOs
+       =========================== -->
+  <script>
+    $(document).ready(function () {
+
+      // =========================================================
+      // EJERCICIO 1 — DOM básico
+      // =========================================================
+      // TODO: Al pulsar #ej1Btn:
+      //  1) Cambia el texto de #ej1Titulo (usa .text()).
+      //  2) Cambia el color de #ej1Texto (usa .css()).
+      //  3) Añade una clase al párrafo (por ejemplo .addClass("fw-bold")).
+      //  4) Deshabilita el botón y cambia su texto a "Hecho ✅" (usa .prop() y .text()).
+      //  5) Escribe un mensaje en #ej1Info indicando que se aplicaron los cambios.
+      // PISTA: $("#ej1Btn").on("click", function() { ... });
+      
+      // Ejercicio 1: implementar comportamiento al pulsar el botón
+      $("#ej1Btn").on("click", function() {
+        $("#ej1Titulo").text("Título modificado (Ejercicio 1)");
+        $("#ej1Texto").css("color", "#d63384").addClass("fw-bold");
+        $(this).prop("disabled", true).text("Hecho ✅");
+        $("#ej1Info").text("Cambios aplicados correctamente.");
+      });
+
+      // =========================================================
+      // EJERCICIO 2 — Efectos
+      // =========================================================
+      // TODO: Crea una función setEj2Estado(mensaje) que escriba:
+      //  "Estado: " + mensaje en #ej2Estado
+      //
+      // TODO: Implementa los botones:
+      //  - #ej2Hide   => ocultar #ej2Caja con hide()
+      //  - #ej2Show   => mostrar #ej2Caja con show()
+      //  - #ej2Toggle => alternar #ej2Caja con toggle()
+      //  - #ej2Fade   => fadeToggle(300)
+      //  - #ej2Slide  => slideToggle(300)
+      // En cada uno, llama a setEj2Estado("...")
+        function setEj2Estado(mensaje) {
+            $("#ej2Estado").text("Estado: " + mensaje);
+        }
+        $("#ej2Hide").on("click", function() {
+            $("#ej2Caja").hide();
+            setEj2Estado("Caja oculta.");
+        });
+        $("#ej2Show").on("click", function() {
+            $("#ej2Caja").show();
+            setEj2Estado("Caja mostrada.");
+        });
+        $("#ej2Toggle").on("click", function() {
+            $("#ej2Caja").toggle();
+            setEj2Estado("Caja alternada.");
+        });
+        $("#ej2Fade").on("click", function() {
+            $("#ej2Caja").fadeToggle(300);
+            setEj2Estado("Efecto fade aplicado.");
+        });
+        $("#ej2Slide").on("click", function() {
+            $("#ej2Caja").slideToggle(300);
+            setEj2Estado("Efecto slide aplicado.");
+        });
+
+      // =========================================================
+      // EJERCICIO 3 — Eventos + this (delegación)
+      // =========================================================
+      // TODO: Usa delegación:
+      //  $("#ej3Lista").on("click", "li", function() { ... })
+      //
+      // Dentro:
+      //  1) Quita la clase selected-li a TODOS los li de la lista.
+      //  2) Añade selected-li al li pulsado usando $(this).
+      //  3) Obtén la hora actual (new Date().toLocaleTimeString()).
+      //  4) Muestra en #ej3Info el texto del elemento + la hora.
+      //     PISTA: $(this).text()
+        $("#ej3Lista").on("click", "li", function() {
+            $("#ej3Lista li").removeClass("selected-li");
+            $(this).addClass("selected-li");
+            const horaActual = new Date().toLocaleTimeString();
+            $("#ej3Info").text(`Has seleccionado: "${$(this).text()}" a las ${horaActual}`);
+        });
+
+      // =========================================================
+      // EJERCICIO 4 — Formulario con validación
+      // =========================================================
+      // TODO: Captura el submit del formulario #ej4Form.
+      //  1) e.preventDefault()
+      //  2) Lee valores de #ej4Nombre y #ej4Email (usa .val().trim()).
+      //  3) Valida:
+      //     - nombre.length >= 3
+      //     - email no vacío y contiene "@"
+      //  4) Si hay errores, crea un array "errores" y muestra un alert-danger en #ej4Msg
+      //     con una <ul> con cada error en un <li>.
+      //  5) Si está OK, muestra alert-success y limpia los inputs (pon .val("") )
+        $("#ej4Form").on("submit", function(e) {
+            e.preventDefault();
+            const nombre = $("#ej4Nombre").val().trim();
+            const email = $("#ej4Email").val().trim();
+            const errores = [];
+    
+            if (nombre.length < 3) {
+                errores.push("El nombre debe tener al menos 3 caracteres.");
+            }
+            if (email === "" || !email.includes("@")) {
+                errores.push("El correo electrónico debe ser válido y contener '@'.");
+            }
+    
+            if (errores.length > 0) {
+                let mensajeErrores = '<div class="alert alert-danger"><ul>';
+                errores.forEach(function(error) {
+                    mensajeErrores += `<li>${error}</li>`;
+                });
+                mensajeErrores += '</ul></div>';
+                $("#ej4Msg").html(mensajeErrores);
+            } else {
+                $("#ej4Msg").html('<div class="alert alert-success">Formulario enviado correctamente.</div>');
+                $("#ej4Nombre").val("");
+                $("#ej4Email").val("");
+            }
+        });
+
+
+      // =========================================================
+      // EJERCICIO 5 — “AJAX” simulado + render dinámico
+      // =========================================================
+      // Datos simulados (NO MODIFICAR)
+      const fakeUsers = [
+        { nombre: "Ana", edad: 25 },
+        { nombre: "Luis", edad: 32 },
+        { nombre: "María", edad: 29 },
+        { nombre: "Javier", edad: 41 }
+      ];
+      // EJERCICIO 5 — Implementación: cargar y limpiar lista
+      $("#ej5Btn").on("click", function () {
+        const $btn = $(this);
+        $btn.prop("disabled", true);
+        $("#ej5Estado").text("Estado: cargando usuarios...");
+        $("#ej5Lista").empty();
+
+        setTimeout(function () {
+          fakeUsers.forEach(function (u) {
+            const item = `<li class="list-group-item d-flex justify-content-between align-items-center">${u.nombre}<span class="badge bg-primary rounded-pill">${u.edad}</span></li>`;
+            $("#ej5Lista").append(item);
+          });
+          $("#ej5Estado").text(`Estado: ✅ usuarios cargados (${fakeUsers.length})`);
+          $btn.prop("disabled", false);
+        }, 600);
+      });
+
+      $("#ej5Clear").on("click", function () {
+        $("#ej5Lista").empty();
+        $("#ej5Estado").text("Estado: lista limpiada.");
+      });
+
+    });
+    
+  </script>
+</body>
+</html>
