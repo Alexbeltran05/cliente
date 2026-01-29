@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea: Almacenamiento Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .contador-grande {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #0d6efd;
+            text-align: center;
+        }
+
+        .tarea-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            margin-bottom: 8px;
+            border-radius: 4px;
+        }
+
+        .tarea-item.completada {
+            background-color: #e8f5e9;
+            border-left-color: #28a745;
+        }
+
+        .tarea-texto.completada {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .sincronizacion-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            display: none;
+            animation: fadeInOut 2s;
+            z-index: 1000;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .nav-tabs .nav-link {
+            color: #495057;
+            border: none;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -3px;
+        }
+
+        .nav-tabs .nav-link:hover {
+            border-color: #0d6efd;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: #0d6efd;
+            background-color: transparent;
+            border-color: #0d6efd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-lg mt-5 mb-5">
+        <h1 class="mb-4 text-center">Tarea: Almacenamiento Web</h1>
+
+
+        <ul class="nav nav-tabs mb-4" id="ejerciciosTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="ej1-tab" data-bs-toggle="tab" data-bs-target="#ej1" type="button"
+                    role="tab">
+                    Ejercicio 1
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="ej2-tab" data-bs-toggle="tab" data-bs-target="#ej2" type="button"
+                    role="tab">
+                    Ejercicio 2
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="ej3-tab" data-bs-toggle="tab" data-bs-target="#ej3" type="button"
+                    role="tab">
+                    Ejercicio 3
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="ej4-tab" data-bs-toggle="tab" data-bs-target="#ej4" type="button"
+                    role="tab">
+                    Ejercicio 4
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="ej5-tab" data-bs-toggle="tab" data-bs-target="#ej5" type="button"
+                    role="tab">
+                    Ejercicio 5
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="ejerciciosContent">
+            <!-- EJERCICIO 1 -->
+            <div class="tab-pane fade show active" id="ej1" role="tabpanel">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Ejercicio 1: Preferencias de usuario con localStorage</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Tu nombre:</label>
+                                <input type="text" class="form-control" id="nombre" placeholder="Introduce tu nombre">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="color" class="form-label">Color de fondo:</label>
+                                <input type="color" class="form-control form-control-color" id="color"
+                                    style="height: 45px;">
+                            </div>
+
+                            <button type="button" class="btn btn-success me-2" id="guardarBtn">Guardar
+                                preferencias</button>
+                            <button type="button" class="btn btn-danger" id="restablecerBtn">Restablecer
+                                preferencias</button>
+                        </form>
+
+                        <hr>
+
+                        <div class="alert alert-info mt-4" id="infoBox" style="display: none;">
+                            <p class="mb-0"><strong id="mensajeInfo"></strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EJERCICIO 2 -->
+            <div class="tab-pane fade" id="ej2" role="tabpanel">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Ejercicio 2: Contador de visitas con localStorage</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="text-muted">Has visitado esta página:</h6>
+                        <div class="contador-grande" id="contador">0</div>
+                        <p class="text-center text-muted">veces</p>
+
+                        <hr>
+
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-danger" id="reiniciarBtn">Reiniciar contador</button>
+                        </div>
+
+                        <div class="alert alert-info mt-4">
+                            <p class="mb-0"><small>El contador se incrementa automáticamente cada vez que cambias de
+                                    pestaña. Intenta cambiar a otra pestaña y volver.</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EJERCICIO 3 -->
+            <div class="tab-pane fade" id="ej3" role="tabpanel">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Ejercicio 3: sessionStorage</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="nombre3" class="form-label">Nombre:</label>
+                                <input type="text" class="form-control" id="nombre3" placeholder="Introduce tu nombre">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="curso" class="form-label">Curso:</label>
+                                <input type="text" class="form-control" id="curso" placeholder="Introduce tu curso">
+                            </div>
+
+                            <button type="button" class="btn btn-success" id="guardarBtn3">Guardar datos</button>
+                        </form>
+
+                        <hr>
+
+                        <div class="alert alert-warning mt-4">
+                            <p class="mb-0"><small><strong>sessionStorage</strong> almacena datos solo durante la sesión
+                                    actual del navegador. Cuando cierras la pestaña o el navegador, los datos se
+                                    eliminan automáticamente. A diferencia de <strong>localStorage</strong>, que
+                                    persiste indefinidamente, sessionStorage es temporal.</small></p>
+                        </div>
+
+                        <div class="alert alert-info mt-3" id="infoBox3" style="display: none;">
+                            <p class="mb-1"><strong>Datos guardados:</strong></p>
+                            <p class="mb-0">Nombre: <span id="mostrarNombre"></span></p>
+                            <p class="mb-0">Curso: <span id="mostrarCurso"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EJERCICIO 4 -->
+            <div class="tab-pane fade" id="ej4" role="tabpanel">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Ejercicio 4: Comparativa localStorage vs sessionStorage</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-4">
+                            <label for="texto" class="form-label">Introduce un texto:</label>
+                            <input type="text" class="form-control" id="texto" placeholder="Escribe algo aquí">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-info w-100" id="guardarLocalBtn">Guardar en
+                                    localStorage</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-warning w-100" id="guardarSessionBtn">Guardar en
+                                    sessionStorage</button>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="card bg-light">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">localStorage</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-1"><strong>Valor:</strong></p>
+                                        <p class="bg-white p-2 rounded mb-3" id="valorLocal" style="min-height: 30px;">-
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="card bg-light">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">sessionStorage</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="mb-1"><strong>Valor:</strong></p>
+                                        <p class="bg-white p-2 rounded mb-3" id="valorSession"
+                                            style="min-height: 30px;">-</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EJERCICIO 5 -->
+        <div class="tab-pane fade" id="ej5" role="tabpanel">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Ejercicio 5: Lista de tareas con localStorage</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="tarea" class="form-label">Añadir nueva tarea:</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="tarea" placeholder="Introduce una tarea">
+                            <button type="button" class="btn btn-success" id="agregarBtn">Añadir</button>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h6>Mis tareas:</h6>
+                    <div id="listaTareas">
+                        <p class="text-muted text-center py-4"></p>
+                    </div>
+
+                    <button type="button" class="btn btn-danger w-100" id="limpiarBtn">Eliminar todas las
+                        tareas</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // ==================== EJERCICIO 1 ====================
+        const nombreInput = document.getElementById('nombre');
+        const colorInput = document.getElementById('color');
+        const guardarBtn = document.getElementById('guardarBtn');
+        const restablecerBtn = document.getElementById('restablecerBtn');
+        const infoBox = document.getElementById('infoBox');
+        const mensajeInfo = document.getElementById('mensajeInfo');
+
+        window.addEventListener('DOMContentLoaded', () => {
+            cargarPreferenciasEj1();
+        });
+
+        function cargarPreferenciasEj1() {
+            const nombre = localStorage.getItem('nombre');
+            const color = localStorage.getItem('colorFondo');
+
+            if (nombre) {
+                nombreInput.value = nombre;
+                mostrarMensajeEj1(`¡Bienvenido de vuelta, ${nombre}!`);
+            }
+
+            if (color) {
+                colorInput.value = color;
+                document.body.style.backgroundColor = color;
+            }
+        }
+
+        guardarBtn.addEventListener('click', () => {
+            const nombre = nombreInput.value.trim();
+            const color = colorInput.value;
+
+            if (nombre === '') {
+                mostrarMensajeEj1('Por favor, introduce tu nombre.');
+                return;
+            }
+
+            localStorage.setItem('nombre', nombre);
+            localStorage.setItem('colorFondo', color);
+            document.body.style.backgroundColor = color;
+            mostrarMensajeEj1(`✓ Preferencias guardadas. Nombre: ${nombre}, Color guardado.`);
+        });
+
+        restablecerBtn.addEventListener('click', () => {
+            localStorage.removeItem('nombre');
+            localStorage.removeItem('colorFondo');
+            nombreInput.value = '';
+            colorInput.value = '#ffffff';
+            mostrarMensajeEj1('Preferencias restablecidas.');
+        });
+
+        function mostrarMensajeEj1(mensaje) {
+            mensajeInfo.textContent = mensaje;
+            infoBox.style.display = 'block';
+        }
+
+        // ==================== EJERCICIO 2 ====================
+        const contadorElemento = document.getElementById('contador');
+        const reiniciarBtn = document.getElementById('reiniciarBtn');
+
+        function incrementarConteador() {
+            let visitas = localStorage.getItem('visitas');
+            visitas = visitas ? Number(visitas) : 0;
+            visitas++;
+            localStorage.setItem('visitas', visitas.toString());
+            contadorElemento.textContent = visitas;
+        }
+
+        function mostrarContador() {
+            const visitas = localStorage.getItem('visitas') || 0;
+            contadorElemento.textContent = visitas;
+        }
+
+        // Incrementar al cargar la página
+        incrementarConteador();
+
+        reiniciarBtn.addEventListener('click', () => {
+            localStorage.removeItem('visitas');
+            contadorElemento.textContent = '0';
+
+        });
+
+        // ==================== EJERCICIO 3 ====================
+        const nombreInput3 = document.getElementById('nombre3');
+        const cursoInput = document.getElementById('curso');
+        const guardarBtn3 = document.getElementById('guardarBtn3');
+        const infoBox3 = document.getElementById('infoBox3');
+        const mostrarNombre = document.getElementById('mostrarNombre');
+        const mostrarCurso = document.getElementById('mostrarCurso');
+
+        function cargarDatosEj3() {
+            const nombre = sessionStorage.getItem('nombre');
+            const curso = sessionStorage.getItem('curso');
+
+            if (nombre) {
+                nombreInput3.value = nombre;
+                mostrarNombre.textContent = nombre;
+            }
+
+            if (curso) {
+                cursoInput.value = curso;
+                mostrarCurso.textContent = curso;
+            }
+
+            if (nombre && curso) {
+                infoBox3.style.display = 'block';
+            }
+        }
+
+        cargarDatosEj3();
+
+        guardarBtn3.addEventListener('click', () => {
+            const nombre = nombreInput3.value.trim();
+            const curso = cursoInput.value.trim();
+
+            if (nombre === '' || curso === '') {
+                alert('Por favor, completa todos los campos.');
+                return;
+            }
+
+            sessionStorage.setItem('nombre', nombre);
+            sessionStorage.setItem('curso', curso);
+
+            mostrarNombre.textContent = nombre;
+            mostrarCurso.textContent = curso;
+            infoBox3.style.display = 'block';
+        });
+
+        // ==================== EJERCICIO 4 ====================
+        const textoInput = document.getElementById('texto');
+        const guardarLocalBtn = document.getElementById('guardarLocalBtn');
+        const guardarSessionBtn = document.getElementById('guardarSessionBtn');
+        const valorLocal = document.getElementById('valorLocal');
+        const valorSession = document.getElementById('valorSession');
+
+        function mostrarValoresEj4() {
+            const local = localStorage.getItem('comparativaLocal');
+            const session = sessionStorage.getItem('comparativaSession');
+
+            if (local) {
+                valorLocal.textContent = local;
+                textoInput.value = local;
+            }
+
+            if (session) {
+                valorSession.textContent = session;
+            }
+        }
+
+        mostrarValoresEj4();
+
+        guardarLocalBtn.addEventListener('click', () => {
+            const texto = textoInput.value.trim();
+
+            if (texto === '') {
+                alert('Por favor, introduce un texto.');
+                return;
+            }
+
+            localStorage.setItem('comparativaLocal', texto);
+            valorLocal.textContent = texto;
+        });
+
+        guardarSessionBtn.addEventListener('click', () => {
+            const texto = textoInput.value.trim();
+
+            if (texto === '') {
+                alert('Por favor, introduce un texto.');
+                return;
+            }
+
+            sessionStorage.setItem('comparativaSession', texto);
+            valorSession.textContent = texto;
+        });
+
+        // ==================== EJERCICIO 5 ====================
+        const tareaInput = document.getElementById('tarea');
+        const agregarBtn = document.getElementById('agregarBtn');
+        const limpiarBtn = document.getElementById('limpiarBtn');
+        const listaTareasDiv = document.getElementById('listaTareas');
+        const sincroInfo = document.getElementById('sincroInfo');
+
+        window.addEventListener('storage', (evento) => {
+            if (evento.key === 'tareas' || evento.key === null) {
+                cargarTareasEj5();
+                mostrarSincronizacion();
+            }
+        });
+
+        function obtenerTareas() {
+            const tareasJSON = localStorage.getItem('tareas');
+            return tareasJSON ? JSON.parse(tareasJSON) : [];
+        }
+
+        function guardarTareasEj5(tareas) {
+            localStorage.setItem('tareas', JSON.stringify(tareas));
+            cargarTareasEj5();
+        }
+
+        function cargarTareasEj5() {
+            const tareas = obtenerTareas();
+            listaTareasDiv.innerHTML = '';
+
+            if (tareas.length === 0) {
+                listaTareasDiv.innerHTML = '<p class="text-muted text-center py-4"></p>';
+                return;
+            }
+
+            tareas.forEach((tarea, index) => {
+                const tareaDiv = document.createElement('div');
+                tareaDiv.className = `tarea-item ${tarea.completada ? 'completada' : ''}`;
+
+                const textoSpan = document.createElement('span');
+                textoSpan.className = `tarea-texto ${tarea.completada ? 'completada' : ''}`;
+                textoSpan.textContent = tarea.texto;
+
+                textoSpan.style.cursor = 'pointer';
+                textoSpan.addEventListener('click', () => {
+                    tarea.completada = !tarea.completada;
+                    guardarTareasEj5(tareas);
+                });
+
+                const btnEliminar = document.createElement('button');
+                btnEliminar.className = 'btn btn-sm btn-danger';
+                btnEliminar.textContent = 'Eliminar';
+                btnEliminar.addEventListener('click', () => {
+                    tareas.splice(index, 1);
+                    guardarTareasEj5(tareas);
+                });
+
+                tareaDiv.appendChild(textoSpan);
+                tareaDiv.appendChild(btnEliminar);
+                listaTareasDiv.appendChild(tareaDiv);
+            });
+        }
+
+        agregarBtn.addEventListener('click', () => {
+            const textoTarea = tareaInput.value.trim();
+
+            if (textoTarea === '') {
+                alert('Por favor, introduce una tarea.');
+                return;
+            }
+
+            const tareas = obtenerTareas();
+            tareas.push({
+                texto: textoTarea,
+                completada: false,
+                id: Date.now()
+            });
+
+            guardarTareasEj5(tareas);
+            tareaInput.value = '';
+            tareaInput.focus();
+        });
+
+        limpiarBtn.addEventListener('click', () => {
+            localStorage.removeItem('tareas');
+            cargarTareasEj5();
+        });
+
+        function mostrarSincronizacion() {
+            sincroInfo.style.display = 'block';
+            setTimeout(() => {
+                sincroInfo.style.display = 'none';
+            }, 2000);
+        }
+
+        tareaInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                agregarBtn.click();
+            }
+        });
+
+        cargarTareasEj5();
+    </script>
+</body>
+
+</html>
